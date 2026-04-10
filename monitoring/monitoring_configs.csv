@@ -1,0 +1,3 @@
+routername,routerip,community,version
+R1,192.168.100.2,lab123,v2c
+R2,192.168.100.3,lab123,v2c
