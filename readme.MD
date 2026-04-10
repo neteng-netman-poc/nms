@@ -13,6 +13,16 @@ The application automatically handles concurrency across multiple routers and ge
 
 ## Prerequisites & Installation
 
+### UV python manager
+
+Ensure that you have **uv** installed on your system. This repository contains a `pyproject.toml` with all package requirements and versions.
+
+1. clone the repository
+2. run `uv sync` this will create a virtual environment with python and all required packages
+3. run python files with `uv run <pyfile>` or activate the virtual environment in `./.venv/bin/activate`
+
+### PIP python package management
+
 Ensure you have **Python 3.10+** installed on your system (the exporter code uses type-hints like `str | None` and modern asyncio).
 
 1. Clone or download the repository to your machine.
