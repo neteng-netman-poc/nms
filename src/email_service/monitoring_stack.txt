@@ -1,0 +1,76 @@
+
+endpoints:
+  - name: resume
+    group: core
+    url: "https://resume.dheerajg.me"
+    interval: 10s
+    conditions:
+      - "[STATUS] == 200"
+      - "[RESPONSE_TIME] < 150"
+
+  - name: git
+    group: core
+    url: "https://git.dheerajg.me"
+    interval: 10s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == UP"
+      - "[RESPONSE_TIME] < 150"
+
+
+  - name: docs
+    group: core
+    url: "https://docs.dheerajg.me"
+    interval: 10s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == UP"
+      - "[RESPONSE_TIME] < 150"
+
+  - name: photos backup
+    group: core
+    url: "https://pic.dheerajg.me"
+    interval: 10s
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].status == UP"
+      - "[RESPONSE_TIME] < 150"
+
+
+  - name: boulder-server-ping
+    group: server-stats
+    url: "icmp://10.0.0.10"
+    interval: 1m
+    conditions:
+     - "[CONNECTED] == true"
+
+  - name: intel-nuc
+    group: server-stats
+    url: "icmp://10.0.0.20"
+    interval: 1m
+    conditions:
+     - "[CONNECTED] == true"
+
+  - name: proxmox
+    group: server-stats
+    url: "icmp://10.0.0.30"
+    interval: 1m
+    conditions:
+     - "[CONNECTED] == true"
+
+   - name: check-domain-expiration
+        url: "https://dheerajg.me"
+        interval: 1h
+        conditions:
+        - "[DOMAIN_EXPIRATION] > 720h"
+
+
+   - name: example-dns-query
+     url: "8.8.8.8" # Address of the DNS server to use
+     interval: 10s
+     dns:
+         query-name: "example.com"
+         query-type: "A"
+     conditions:
+         - "[BODY] == pat(*.*.*.*)"  # Matches any IPv4 address
+         - "[DNS_RCODE] == NOERROR"
