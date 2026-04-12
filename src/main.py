@@ -1,4 +1,6 @@
 import time
+# import requests
+
 from fasthtml.common import *
 
 from gui.navbar import navbar
@@ -63,7 +65,7 @@ def router_backups():
         navbar(),
         Div(
             H1("Backed Up Router Configurations"),
-            P(pull_backup_files()),
+            pull_backup_files(),
             cls="container",
         ),
         bootscript(),
@@ -79,6 +81,7 @@ def load_conf(file: str):
 def save_conf(conf: TextConf):
     print(conf)
     time.sleep(3)
+    # webhook to jenkins api endpoint
     return H4(f"sent config to {conf.ip}", cls="alert")
 
 if __name__ == "__main__":
