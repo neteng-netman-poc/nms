@@ -10,3 +10,9 @@ class Router:
     loopback: str
     user: str
     password: str
+
+@dataclass
+class TextConf:
+    conf: str
+    secret: str
+    ip: str
