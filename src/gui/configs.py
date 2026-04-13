@@ -1,6 +1,7 @@
 from fasthtml.common import H3, Label, Button, Div, Form, Textarea, Ul, Li, Input, Span
 import os
 
+
 def pull_backup_files():
     """
     pull list of backup files from api and render as a list
@@ -13,7 +14,20 @@ def pull_backup_files():
         Div(
             Div(
                 H3("Load Config:"),
-                Ul(*[Li(Button(f, hx_post="/load_conf", hx_target="#conf", hx_swap="innerHTML", hx_vals={"file": f})) for f in files]),
+                Ul(
+                    *[
+                        Li(
+                            Button(
+                                f,
+                                hx_post="/load_conf",
+                                hx_target="#conf",
+                                hx_swap="innerHTML",
+                                hx_vals={"file": f},
+                            )
+                        )
+                        for f in files
+                    ]
+                ),
                 cls="col",
             ),
             Div(edit_config("", ""), cls="col", id="conf"),
@@ -21,6 +35,7 @@ def pull_backup_files():
         ),
         cls="container",
     )
+
 
 def edit_config(name, text):
     """
@@ -37,7 +52,7 @@ def edit_config(name, text):
             hx_swap="innerHTML",
             hx_indicator="#send_conf_btn",
             hx_disabled_elt="#send_conf_btn",
-            )(
+        )(
             Textarea(text, name="conf", cls="form-control", rows=20),
             Div(
                 Label("SSH Secret:"),
@@ -58,5 +73,5 @@ def edit_config(name, text):
             ),
         ),
         Div(id="last_save"),
-        cls="container m-3"
+        cls="container m-3",
     )

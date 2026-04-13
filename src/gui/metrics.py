@@ -2,6 +2,7 @@ from fasthtml.common import A, Button, Div, Table, Th, Tr, Td
 
 from classes.router import GrafanaQuery
 
+
 def query_grafana():
     """
     hit grafana api to find routers that are up and their status
@@ -16,6 +17,7 @@ def query_grafana():
     ]
     return test_data
 
+
 def metric_table():
     """
     get grafana data and renter as table with 'hostname' 'ip' and 'status'
@@ -25,8 +27,10 @@ def metric_table():
     rows = []
     for r in data:
         tr = Tr(
-            Td(A(r.host, href="www.google.com")), Td(r.ip), Td(f"{"⚠" if r.error else "✓"}"),
-            cls=f"{"table-warning" if r.error else ""}",
+            Td(A(r.host, href="www.google.com")),
+            Td(r.ip),
+            Td(f"{'⚠' if r.error else '✓'}"),
+            cls=f"{'table-warning' if r.error else ''}",
         )
         rows.append(tr)
     return Table(
@@ -34,4 +38,3 @@ def metric_table():
         *rows,
         cls="table table-bordered",
     )
-

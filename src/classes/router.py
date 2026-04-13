@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Router:
     index: int
@@ -11,17 +12,20 @@ class Router:
     user: str
     password: str
 
+
 @dataclass
 class TextConf:
     conf: str
     secret: str
     ip: str
 
+
 @dataclass
 class GrafanaQuery:
     host: str
     ip: str
     error: bool
+
 
 @dataclass
 class IpChange:
@@ -31,6 +35,7 @@ class IpChange:
     interface: str
     new_ip: str
     ip_mask: str
+
 
 @dataclass
 class OspfChange:

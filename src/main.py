@@ -17,12 +17,13 @@ hdrs = (
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css",
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB",
         type="text/css",
-        crossorigin="anonymous"
+        crossorigin="anonymous",
     ),
 )
 
 
 app = FastHTML(pico=False, hdrs=hdrs)
+
 
 @app.get("/")
 def home():
@@ -40,6 +41,7 @@ def home():
         ),
         bootscript(),
     )
+
 
 @app.get("/router_forms")
 def router_forms():
@@ -68,18 +70,21 @@ def router_forms():
                 ),
             ),
             Div(id="router_form", cls="mt-3"),
-            cls="container mt-4 text-center"
+            cls="container mt-4 text-center",
         ),
         bootscript(),
     )
+
 
 @app.post("/ospf_form")
 def ospf_form_html():
     return ospf_form()
 
+
 @app.post("/ip_form")
 def ip_form_html():
     return int_ip_form()
+
 
 @app.get("/router_confs")
 def router_confs():
@@ -109,10 +114,12 @@ def router_confs():
         bootscript(),
     )
 
+
 @app.post("/init_conf")
 def init_conf():
     time.sleep(2)
     return H4(f"sent initial configurations", cls="alert")
+
 
 @app.get("/router_backups")
 def router_backups():
@@ -127,11 +134,13 @@ def router_backups():
         bootscript(),
     )
 
+
 @app.post("/load_conf")
 def load_conf(file: str):
-    with open(f"./src/backups/{file}", "r")  as f:
+    with open(f"./src/backups/{file}", "r") as f:
         text = f.read()
     return edit_config(file, text)
+
 
 @app.post("/save_conf")
 def save_conf(conf: TextConf):
@@ -140,13 +149,16 @@ def save_conf(conf: TextConf):
     # webhook to jenkins api endpoint
     return H4(f"sent config to {conf.ip}", cls="alert")
 
+
 @app.post("/ospf_config")
 def ospf_config(conf: OspfChange):
     pass
 
+
 @app.post("/ip_config")
 def ip_config(conf: IpChange):
     pass
+
 
 if __name__ == "__main__":
     serve()

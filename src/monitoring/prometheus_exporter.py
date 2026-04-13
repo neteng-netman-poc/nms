@@ -92,19 +92,19 @@ snmp_iface_admin_status = Gauge(
 
 # ── SNMP key → Gauge mapping ───────────────────────────────────────────────────
 IFACE_METRIC_MAP = {
-    "ifHCInOctets":  snmp_iface_in_octets,
+    "ifHCInOctets": snmp_iface_in_octets,
     "ifHCOutOctets": snmp_iface_out_octets,
-    "ifInErrors":    snmp_iface_in_errors,
-    "ifInDiscards":  snmp_iface_in_discards,
-    "ifOperStatus":  snmp_iface_oper_status,
+    "ifInErrors": snmp_iface_in_errors,
+    "ifInDiscards": snmp_iface_in_discards,
+    "ifOperStatus": snmp_iface_oper_status,
     "ifAdminStatus": snmp_iface_admin_status,
 }
 
 SCALAR_METRIC_MAP = [
-    ("uptime",               snmp_uptime),
-    ("cpuLoad5min",          snmp_cpu_load_5min),
-    ("ciscoMemoryPoolUsed",  snmp_memory_used),
-    ("ciscoMemoryPoolFree",  snmp_memory_free),
+    ("uptime", snmp_uptime),
+    ("cpuLoad5min", snmp_cpu_load_5min),
+    ("ciscoMemoryPoolUsed", snmp_memory_used),
+    ("ciscoMemoryPoolFree", snmp_memory_free),
 ]
 
 
@@ -120,8 +120,8 @@ def update_metrics(devices: list) -> None:
     """Push collected SNMP data into Prometheus Gauge objects."""
     for device in devices:
         rname = device["routername"]
-        rip   = device["routerip"]
-        dev   = {"routername": rname, "routerip": rip}
+        rip = device["routerip"]
+        dev = {"routername": rname, "routerip": rip}
 
         # Scalar metrics
         for snmp_key, gauge in SCALAR_METRIC_MAP:
@@ -149,7 +149,9 @@ def poll_loop() -> None:
         t0 = time.monotonic()
         print(f"[poll] Collecting SNMP data ...")
         try:
-            devices = _loop.run_until_complete(get_all_snmp_data(CONFIGS_PATH, OIDS_PATH))
+            devices = _loop.run_until_complete(
+                get_all_snmp_data(CONFIGS_PATH, OIDS_PATH)
+            )
             update_metrics(devices)
             elapsed = time.monotonic() - t0
             print(f"[poll] Updated {len(devices)} device(s) in {elapsed:.1f}s")

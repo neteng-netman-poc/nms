@@ -3,13 +3,22 @@ import csv
 import json
 from pathlib import Path
 from pysnmp.hlapi.v3arch.asyncio import (
-    SnmpEngine, CommunityData, UdpTransportTarget, ContextData,
-    ObjectType, ObjectIdentity, get_cmd
+    SnmpEngine,
+    CommunityData,
+    UdpTransportTarget,
+    ContextData,
+    ObjectType,
+    ObjectIdentity,
+    get_cmd,
 )
 
 TABLE_OIDS = {
-    "ifHCInOctets", "ifHCOutOctets", "ifInErrors", "ifInDiscards",
-    "ifOperStatus", "ifAdminStatus"
+    "ifHCInOctets",
+    "ifHCOutOctets",
+    "ifInErrors",
+    "ifInDiscards",
+    "ifOperStatus",
+    "ifAdminStatus",
 }
 
 IF_NAME_OID = ".1.3.6.1.2.1.31.1.1.1.1"
@@ -27,9 +36,9 @@ async def _get_oid(oid: str, target: str, version: str, community: str):
                     CommunityData(community, mpModel=0 if version == "v1" else 1),
                     await UdpTransportTarget.create((target, 161)),
                     ContextData(),
-                    ObjectType(ObjectIdentity(oid))
+                    ObjectType(ObjectIdentity(oid)),
                 ),
-                timeout=5
+                timeout=5,
             )
         except asyncio.TimeoutError:
             return None
@@ -67,14 +76,15 @@ async def fetch_device_snmp_data(router_config: dict, oids: dict) -> dict:
     # Step 1: scalars + discover interfaces (all parallel)
     scalar_keys = list(scalar_oids.keys())
     all_tasks = [
-        _get_oid(scalar_oids[k], target_ip, version, community)
-        for k in scalar_keys
+        _get_oid(scalar_oids[k], target_ip, version, community) for k in scalar_keys
     ]
     all_tasks.append(_discover_interfaces(target_ip, version, community))
 
     first_results = await asyncio.gather(*all_tasks)
 
-    scalars = {scalar_keys[i]: (first_results[i] or "") for i in range(len(scalar_keys))}
+    scalars = {
+        scalar_keys[i]: (first_results[i] or "") for i in range(len(scalar_keys))
+    }
     if_names = first_results[-1]
 
     # Step 2: all table OIDs for all interfaces (parallel with semaphore)
@@ -99,27 +109,27 @@ async def fetch_device_snmp_data(router_config: dict, oids: dict) -> dict:
         "routername": router_config["routername"],
         "routerip": router_config["routerip"],
         "scalar": scalars,
-        "interfaces": interfaces
+        "interfaces": interfaces,
     }
 
 
 async def get_all_snmp_data(configs_file: str, oids_file: str) -> list:
     oids = {}
-    with open(oids_file, mode='r', encoding='utf-8') as f:
+    with open(oids_file, mode="r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             if row.get("name") and row.get("oid"):
                 oids[row["name"]] = row["oid"]
 
     routers = []
-    with open(configs_file, mode='r', encoding='utf-8') as f:
+    with open(configs_file, mode="r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             routers.append(row)
 
-    return await asyncio.gather(*[
-        fetch_device_snmp_data(router, oids) for router in routers
-    ])
+    return await asyncio.gather(
+        *[fetch_device_snmp_data(router, oids) for router in routers]
+    )
 
 
 def main():
