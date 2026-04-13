@@ -1,7 +1,11 @@
-from fasthtml.common import H3, Label, Button, Div, Button, Form, Textarea, Ul, Li, Input, Span
+from fasthtml.common import H3, Label, Button, Div, Form, Textarea, Ul, Li, Input, Span
 import os
 
 def pull_backup_files():
+    """
+    pull list of backup files from api and render as a list
+    """
+
     # pull from api
     files = os.listdir("./src/backups/")
 
@@ -19,6 +23,10 @@ def pull_backup_files():
     )
 
 def edit_config(name, text):
+    """
+    render a specific config as an editable form for sending to routers.
+    """
+
     return Div(
         H3(name),
         Form(

@@ -1,6 +1,10 @@
 from fasthtml.common import Nav, Div, Ul, A, Li
 
 def navbar():
+    """
+    render navbar for GUI
+    """
+
     return (
         Nav(
             Div(
