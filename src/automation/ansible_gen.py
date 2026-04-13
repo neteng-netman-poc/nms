@@ -263,3 +263,5 @@ def day1_configs():
 
     if run_playbook("playbooks/config.yaml", tags=selected_configs) == 0:
         config_devices(selected_configs, "./csv/ansible_hosts.csv")
+
+day1_configs()
