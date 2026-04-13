@@ -1,9 +1,5 @@
-- name: Generate ipv4 config from template
-  template: src=ipv4.j2 dest=../configs/{{ item.hostname }}_ipv4.txt
-  with_items: '{{routers}}'
-- name: Generate ipv6 config from template
-  template: src=ipv6.j2 dest=../configs/{{ item.hostname }}_ipv6.txt
-  with_items: '{{routers}}'
-- name: Generate ospf config from template
-  template: src=ospf.j2 dest=../configs/{{ item.hostname }}_ospf.txt
-  with_items: '{{routers}}'
+- name: Generate full config from template
+  tags:
+  - all
+  template: src=master_template.j2 dest=../configs/{{ item.hostname }}_all.txt
+  with_items: '{{ routers }}'

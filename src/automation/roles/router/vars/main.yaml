@@ -1,33 +1,18 @@
 routers:
-- hostname: router1
-  interface:
-    ip_address: 10.0.0.0
+- &id001
+  hostname: router1
+  interfaces:
+  - ip_address: 10.0.0.0
     ipv6_address: 2001:db8::1
     name: FastEthernet2/0
     prefix_length: 64
     subnet_mask: 255.255.255.254
-  ospf:
-    networks:
-    - address: 10.0.0.0
-      area: 0
-      wildcard: 0.0.0.255
-    process_id: 1
-- hostname: router1
-  interface:
-    ip_address: 10.0.0.4
+  - ip_address: 10.0.0.4
     ipv6_address: 2001:db8::1
     name: FastEthernet1/1
     prefix_length: 64
     subnet_mask: 255.255.255.254
-  ospf:
-    networks:
-    - address: 10.0.0.0
-      area: 0
-      wildcard: 0.0.0.255
-    process_id: 1
-- hostname: router1
-  interface:
-    ip_address: 10.0.0.6
+  - ip_address: 10.0.0.6
     ipv6_address: 2001:db8::1
     name: FastEthernet1/0
     prefix_length: 64
@@ -37,36 +22,30 @@ routers:
     - address: 10.0.0.0
       area: 0
       wildcard: 0.0.0.255
+    - address: 10.0.0.0
+      area: 0
+      wildcard: 0.0.0.255
+    - address: 10.0.0.0
+      area: 0
+      wildcard: 0.0.0.255
     process_id: 1
-- hostname: router2
-  interface:
-    ip_address: 10.0.0.10
+- *id001
+- *id001
+- *id001
+- &id002
+  hostname: router2
+  interfaces:
+  - ip_address: 10.0.0.10
     ipv6_address: 2001:db8::2
     name: FastEthernet1/0
     prefix_length: 64
     subnet_mask: 255.255.255.254
-  ospf:
-    networks:
-    - address: 10.0.0.0
-      area: 0
-      wildcard: 0.0.0.255
-    process_id: 1
-- hostname: router2
-  interface:
-    ip_address: 10.0.0.3
+  - ip_address: 10.0.0.3
     ipv6_address: 2001:db8::2
     name: FastEthernet2/0
     prefix_length: 64
     subnet_mask: 255.255.255.254
-  ospf:
-    networks:
-    - address: 10.0.0.0
-      area: 0
-      wildcard: 0.0.0.255
-    process_id: 1
-- hostname: router2
-  interface:
-    ip_address: 10.0.0.9
+  - ip_address: 10.0.0.9
     ipv6_address: 2001:db8::2
     name: FastEthernet1/1
     prefix_length: 64
@@ -76,23 +55,28 @@ routers:
     - address: 10.0.0.0
       area: 0
       wildcard: 0.0.0.255
+    - address: 10.0.0.0
+      area: 0
+      wildcard: 0.0.0.255
+    - address: 10.0.0.0
+      area: 0
+      wildcard: 0.0.0.255
     process_id: 1
-- hostname: router3
-  interface:
-    ip_address: 10.0.0.2
+- *id001
+- *id002
+- *id001
+- *id002
+- *id001
+- *id002
+- &id003
+  hostname: router3
+  interfaces:
+  - ip_address: 10.0.0.2
     ipv6_address: 2001:db8::3
     name: FastEthernet1/0
     prefix_length: 64
     subnet_mask: 255.255.255.254
-  ospf:
-    networks:
-    - address: 10.0.0.0
-      area: 0
-      wildcard: 0.0.0.255
-    process_id: 1
-- hostname: router3
-  interface:
-    ip_address: 10.0.0.1
+  - ip_address: 10.0.0.1
     ipv6_address: 2001:db8::3
     name: FastEthernet1/1
     prefix_length: 64
@@ -102,23 +86,25 @@ routers:
     - address: 10.0.0.0
       area: 0
       wildcard: 0.0.0.255
-    process_id: 1
-- hostname: router4
-  interface:
-    ip_address: 10.0.0.8
-    ipv6_address: 2001:db8::4
-    name: FastEthernet1/0
-    prefix_length: 64
-    subnet_mask: 255.255.255.254
-  ospf:
-    networks:
     - address: 10.0.0.0
       area: 0
       wildcard: 0.0.0.255
     process_id: 1
-- hostname: router4
-  interface:
-    ip_address: 10.0.0.5
+- *id001
+- *id002
+- *id003
+- *id001
+- *id002
+- *id003
+- &id004
+  hostname: router4
+  interfaces:
+  - ip_address: 10.0.0.8
+    ipv6_address: 2001:db8::4
+    name: FastEthernet1/0
+    prefix_length: 64
+    subnet_mask: 255.255.255.254
+  - ip_address: 10.0.0.5
     ipv6_address: 2001:db8::4
     name: FastEthernet1/1
     prefix_length: 64
@@ -128,23 +114,27 @@ routers:
     - address: 10.0.0.0
       area: 0
       wildcard: 0.0.0.255
-    process_id: 1
-- hostname: router5
-  interface:
-    ip_address: 10.0.0.11
-    ipv6_address: 2001:db8::4
-    name: FastEthernet1/0
-    prefix_length: 64
-    subnet_mask: 255.255.255.254
-  ospf:
-    networks:
     - address: 10.0.0.0
       area: 0
       wildcard: 0.0.0.255
     process_id: 1
-- hostname: router5
-  interface:
-    ip_address: 10.0.0.7
+- *id001
+- *id002
+- *id003
+- *id004
+- *id001
+- *id002
+- *id003
+- *id004
+- &id005
+  hostname: router5
+  interfaces:
+  - ip_address: 10.0.0.11
+    ipv6_address: 2001:db8::4
+    name: FastEthernet1/0
+    prefix_length: 64
+    subnet_mask: 255.255.255.254
+  - ip_address: 10.0.0.7
     ipv6_address: 2001:db8::4
     name: FastEthernet1/1
     prefix_length: 64
@@ -154,4 +144,12 @@ routers:
     - address: 10.0.0.0
       area: 0
       wildcard: 0.0.0.255
+    - address: 10.0.0.0
+      area: 0
+      wildcard: 0.0.0.255
     process_id: 1
+- *id001
+- *id002
+- *id003
+- *id004
+- *id005

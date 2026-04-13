@@ -4,31 +4,31 @@ all:
       hosts:
         router1:
           ansible_connection: network_cli
-          ansible_host: 198.51.100.3
+          ansible_host: 192.168.100.1
           ansible_network_os: ios
-          ansible_password: cisco
-          ansible_user: cisco
+          ansible_password: lab123
+          ansible_user: admin
         router2:
           ansible_connection: network_cli
-          ansible_host: 198.51.100.4
+          ansible_host: 192.168.100.2
           ansible_network_os: ios
-          ansible_password: cisco
-          ansible_user: cisco
+          ansible_password: lab123
+          ansible_user: admin
         router3:
           ansible_connection: network_cli
-          ansible_host: 198.51.100.5
+          ansible_host: 192.168.100.3
           ansible_network_os: ios
-          ansible_password: cisco
-          ansible_user: cisco
+          ansible_password: lab123
+          ansible_user: admin
         router4:
           ansible_connection: network_cli
-          ansible_host: 198.51.100.6
+          ansible_host: 192.168.100.4
           ansible_network_os: ios
-          ansible_password: cisco
-          ansible_user: cisco
+          ansible_password: lab123
+          ansible_user: admin
         router5:
           ansible_connection: network_cli
-          ansible_host: 198.51.100.7
+          ansible_host: 192.168.100.5
           ansible_network_os: ios
-          ansible_password: cisco
-          ansible_user: cisco
+          ansible_password: lab123
+          ansible_user: admin
