@@ -9,7 +9,7 @@ TASK_TEMPLATES = {
     "all": [
         {
             "name": "Generate full config from template",
-            "template": "src=master_template.j2 dest=src/automation/configs/{{ item.hostname }}_all.txt",
+            "template": "src=master_template.j2 dest=../configs/{{ item.hostname }}_all.txt",
             "with_items": "{{ routers }}",
             "tags": ["all"],
         }
@@ -17,7 +17,7 @@ TASK_TEMPLATES = {
     "ipv4": [
         {
             "name": "Generate ipv4 config from template",
-            "template": "src=ipv4.j2 dest=src/automation/configs/{{ item.hostname }}_ipv4.txt",
+            "template": "src=ipv4.j2 dest=../configs/{{ item.hostname }}_ipv4.txt",
             "with_items": "{{routers}}",
             "tags": ["ipv4"],
         }
@@ -25,7 +25,7 @@ TASK_TEMPLATES = {
     "ipv6": [
         {
             "name": "Generate ipv6 config from template",
-            "template": "src=ipv6.j2 dest=src/automation/configs/{{ item.hostname }}_ipv6.txt",
+            "template": "src=ipv6.j2 dest=../configs/{{ item.hostname }}_ipv6.txt",
             "with_items": "{{routers}}",
             "tags": ["ipv6"],
         }
@@ -33,7 +33,7 @@ TASK_TEMPLATES = {
     "hostname": [
         {
             "name": "Generate hostname config from template",
-            "template": "src=hostname.j2 dest=src/automation/configs/{{ item.hostname }}_hostname.txt",
+            "template": "src=hostname.j2 dest=../configs/{{ item.hostname }}_hostname.txt",
             "with_items": "{{routers}}",
             "tags": ["hostname"],
         }
@@ -41,7 +41,7 @@ TASK_TEMPLATES = {
     "ospf": [
         {
             "name": "Generate ospf config from template",
-            "template": "src=ospf.j2 dest=src/automation/configs/{{ item.hostname }}_ospf.txt",
+            "template": "src=ospf.j2 dest=../configs/{{ item.hostname }}_ospf.txt",
             "with_items": "{{routers}}",
             "tags": ["ospf"],
         }
@@ -200,7 +200,7 @@ def run_playbook(playbook_file, tags, inventory="./src/automation/inventory/host
     Returns:
         int: The return code of the Ansible playbook run.
     """
-    cmd = ["ansible-playbook", "-i", inventory, playbook_file, "-vvv"]
+    cmd = ["ansible-playbook", "-i", inventory, playbook_file]
 
     if dry_run:
         cmd.append("--check")
