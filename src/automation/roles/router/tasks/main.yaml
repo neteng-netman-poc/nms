@@ -1,5 +1,5 @@
 - name: Generate full config from template
   tags:
   - all
-  template: src=master_template.j2 dest=../configs/{{ item.hostname }}_all.txt
+  template: src=master_template.j2 dest=src/automation/configs/{{ item.hostname }}_all.txt
   with_items: '{{ routers }}'
