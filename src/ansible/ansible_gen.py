@@ -243,19 +243,23 @@ def config_devices(selected_cfgs, host_info_csv):
         for cfg in selected_cfgs:
             cfg_file = f"./configs/{host['hostname']}_{cfg}.txt"
             print(cfg_file)
-            print(connection.send_config_from_file(cfg_file))
+            connection.send_config_from_file(cfg_file)
         connection.disconnect()
 
+def day1_configs():
+    """
+    A function to run the initial day 1 configurations on devices using Ansible playbooks and jinja2 templates.
+    Generates the necessary IPv4 interface, IPv6 interface, and OSPF configuration files from templates, creates the Ansible playbook and tasks, and runs the playbook to apply the configurations to the devices.
+    """
+    selected_configs = ["all"]
 
-selected_configs = ["all"]
+    csv_to_inventory("./csv/ansible_hosts.csv")
+    csv_to_hostvars("./csv/device_config_info.csv")
 
-csv_to_inventory("./csv/ansible_hosts.csv")
-csv_to_hostvars("./csv/device_config_info.csv")
+    generate_tasks(selected_configs)
 
-generate_tasks(selected_configs)
-
-generate_playbook("./playbooks/config.yaml")
+    generate_playbook("./playbooks/config.yaml")
 
 
-if run_playbook("playbooks/config.yaml", tags=selected_configs) == 0:
-    config_devices(selected_configs, "./csv/ansible_hosts.csv")
+    if run_playbook("playbooks/config.yaml", tags=selected_configs) == 0:
+        config_devices(selected_configs, "./csv/ansible_hosts.csv")

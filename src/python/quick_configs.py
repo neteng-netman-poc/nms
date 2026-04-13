@@ -1,5 +1,6 @@
 from jinja2 import Template
 from netmiko import ConnectHandler
+import os
 
 def config_ospf(process_id, area, network, wildcard_mask):
     with open('templates/ospf.j2', 'r') as template_file:
@@ -32,6 +33,8 @@ def config_bgp(as_number, neighbor_ip, remote_as):
     return template.render(as_number=as_number, neighbor_ip=neighbor_ip, remote_as=remote_as)
 
 def save_config_to_file(config, filename):
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    
     with open(filename, 'w') as file:
         file.write(config)
     file.close()
@@ -50,3 +53,5 @@ def send_config_to_device(config, device_ip, username, password):
     connection.send_config_set(config.splitlines())
     connection.send_command('write memory')
     connection.disconnect()
+    
+save_config_to_file(config_ipv4_interface("GigabitEthernet0/1", "192.168.1.1", "255.255.255.0"), "configs/gigabitethernet0_1.cfg")

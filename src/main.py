@@ -9,6 +9,9 @@ from gui.utils import bootscript
 from gui.configs import pull_backup_files, edit_config
 from gui.metrics import metric_table
 from classes.router import IpV4Change, IpV6Change, OspfChange, TextConf
+from ansible.ansible_gen import day1_configs
+import python.quick_configs as quick_configs
+import python.configs as txt_cfg_files
 
 
 hdrs = (
@@ -151,8 +154,8 @@ def init_conf():
     """
     Run the initial router configurations and render results.
     """
-
-    # <-- send initial config
+    day1_configs()
+    
     time.sleep(2)
     return H4(f"sent initial configurations", cls="alert")
 
@@ -208,6 +211,7 @@ def ospf_config(conf: OspfChange):
     Send the new OSPF configuration to the desired device and render the result.
     """
     # <-- put ospf config function
+    
     pass
 
 
