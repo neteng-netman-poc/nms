@@ -26,45 +26,49 @@ def ospf_form():
             method="post",
             action="/ospf_config",
         )(
-        Div(
             Div(
-                H2("OSPF Configuration"),
+                H2("OSPF Configuration", cls="mb-3"),
                 Fieldset(
                     Div(
-                        Label("Management IP", cls="col-xs-4"),
-                        Input(name="mgmt_ip", cls="col-xs-8"),
-                        cls="row",
+                        Label("Management IP", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="mgmt_ip", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("User", cls="col-xs-4"),
-                        Input(name="user", cls="col-xs-8"),
-                        cls="row",
+                        Label("User", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="user", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("Secret", cls="col-xs-4"),
-                        Input(name="secret", cls="col-xs-8"),
-                        cls="row",
+                        Label("Secret", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="secret", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("OSPF ID", cls="col-xs-4"),
-                        Input(name="ospf_id", type="text", cls="col-xs-8"),
-                        cls="row",
+                        Label("OSPF ID", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="ospf_id", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("OSPF Network", cls="col-xs-4"),
-                        Input(name="ospf_network", type="text", cls="col-xs-8"),
-                        cls="row",
+                        Label("OSPF Area", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="ospf_area", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("OSPF Mask", cls="col-xs-4"),
-                        Input(name="ospf_mask", type="text", cls="col-xs-8"),
-                        cls="row",
+                        Label("OSPF Network", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="ospf_network", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
+                    ),
+                    Div(
+                        Label("OSPF Mask", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="ospf_mask", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                 ),
-                Button("Send", type="submit", cls="btn btn-primary mt-4"),
-            ),
+                Button("Send", type="submit", cls="btn btn-primary mt-3"),
+                cls="col-md-6 col-lg-4 mx-auto",  # <-- constrains width and centers
+            )
         )
-    )
 
 
 def int_ip_form():
@@ -72,42 +76,41 @@ def int_ip_form():
             method="post",
             action="/ip_config",
         )(
-        Div(
             Div(
-                H2("Interface IP Configuration"),
+                H2("Interface IP Configuration", cls="mb-3"),
                 Fieldset(
                     Div(
-                        Label("Management IP", cls="col-xs-4"),
-                        Input(name="mgmt_ip", cls="col-xs-8"),
-                        cls="row",
+                        Label("Management IP", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="mgmt_ip", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("User", cls="col-xs-4"),
-                        Input(name="user", cls="col-xs-8"),
-                        cls="row",
+                        Label("User", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="user", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("Secret", cls="col-xs-4"),
-                        Input(name="secret", cls="col-xs-8"),
-                        cls="row",
+                        Label("Secret", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="secret", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("Interface", cls="col-xs-4"),
-                        Input(name="interface", type="text", cls="col-xs-8"),
-                        cls="row",
+                        Label("Interface", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="interface", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("New IP", cls="col-xs-4"),
-                        Input(name="new_ip", type="text", cls="col-xs-8"),
-                        cls="row",
+                        Label("New IP", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="new_ip", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                     Div(
-                        Label("IP Mask", cls="col-xs-4"),
-                        Input(name="ip_mask", type="text", cls="col-xs-8"),
-                        cls="row",
+                        Label("IP Mask", cls="col-sm-4 col-form-label"),
+                        Div(Input(name="ip_mask", cls="form-control"), cls="col-sm-8"),
+                        cls="row mb-2 align-items-center",
                     ),
                 ),
-                Button("Send", type="submit", cls="btn btn-primary mt-4"),
-            ),
+                Button("Send", type="submit", cls="btn btn-primary mt-3"),
+                cls="col-md-6 col-lg-4 mx-auto",
+            )
         )
-    )

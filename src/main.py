@@ -36,7 +36,7 @@ def home():
         Div(
             H1("Router Metrics"),
             metric_table(),
-            cls="container"
+            cls="container text-center",
         ),
         bootscript(),
     )
@@ -68,7 +68,7 @@ def router_forms():
                 ),
             ),
             Div(id="router_form", cls="mt-3"),
-            cls="container mt-4"
+            cls="container mt-4 text-center"
         ),
 bootscript(),
     )
@@ -87,11 +87,32 @@ def router_confs():
         Title("Configs"),
         navbar(),
         Div(
-            H1("Pull Router Configurations"),
-            cls="container"
+            Div(
+                H1("Send Initial Configs", cls="mb-3"),
+                Button(
+                    "Deploy",
+                    Span(cls="spinner-border spinner-border-sm ms-1 htmx-indicator"),
+                    hx_post="/init_conf",
+                    hx_target="#initial_conf",
+                    hx_swap="innerHTML",
+                    hx_indicator="#init_conf_btn",
+                    hx_disabled_elt="#init_conf_btn",
+                    type="submit",
+                    id="init_conf_btn",
+                    cls="btn btn-primary",
+                ),
+                cls="col",
+            ),
+            Div(Div(id="initial_conf"), cls="row mt-3"),
+            cls="container mt-4 text-center",
         ),
         bootscript(),
     )
+
+@app.post("/init_conf")
+def init_conf():
+    time.sleep(2)
+    return H4(f"sent initial configurations", cls="alert")
 
 @app.get("/router_backups")
 def router_backups():

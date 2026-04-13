@@ -49,7 +49,13 @@ def edit_config(name, text):
                 Input(name="ip"),
                 cls="row",
             ),
-            Button("Send Config", Span(cls="spinner-border spinner-border-sm ms-2 htmx-indicator"), type="submit", id="send_conf_btn", cls="btn btn-primary mt-2"),
+            Button(
+                "Send Config",
+                Span(cls="spinner-border spinner-border-sm ms-2 htmx-indicator"),
+                type="submit",
+                id="send_conf_btn",
+                cls="btn btn-primary mt-2",
+            ),
         ),
         Div(id="last_save"),
         cls="container m-3"

@@ -10,16 +10,17 @@ def navbar():
             Div(
                 Div(
                     Ul(
-                        Li(A("metrics", cls="nav-link", href="/"), cls="nav-item"),
-                        Li(A("modify configs", cls="nav-link", href="/router_forms"), cls="nav-item"),
-                        Li(A("view configs", cls="nav-link", href="/router_confs"), cls="nav-item"),
-                        Li(A("backups", cls="nav-link", href="/router_backups"), cls="nav-item"),
-                        cls="navbar-nav"
+                        Li(A("Initial Confs", cls="btn btn-outline-primary mx-2", href="/router_confs"), cls="nav-item"),
+                        Li(A("Metrics", cls="btn btn-outline-primary mx-2", href="/"), cls="nav-item"),
+                        Li(A("Modify Configs", cls="btn btn-outline-primary mx-2", href="/router_forms"), cls="nav-item"),
+                        Li(A("Backups", cls="btn btn-outline-primary mx-2", href="/router_backups"), cls="nav-item"),
+                        cls="navbar-nav justify-content-center w-100"
                     ),
-                    cls="collapse navbar-collapse", id="navbarNav"
+                    cls="container w-100"
                 ),
-                cls="container-fluid"
+                cls="container"
             ),
             cls="navbar navbar-expand-lg bg-body-tertiary"
         )
     )
+
