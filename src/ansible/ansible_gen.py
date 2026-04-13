@@ -9,7 +9,7 @@ TASK_TEMPLATES = {
     'all':[
         {
             'name': 'Generate full config from template',
-            'template': 'src=master_template.j2 dest=./configs/{{ item.hostname }}_all.txt',
+            'template': 'src=master_template.j2 dest=../configs/{{ item.hostname }}_all.txt',
             'with_items': '{{ routers }}',
             'tags': ['all']
         }
