@@ -70,7 +70,7 @@ def router_forms():
             Div(id="router_form", cls="mt-3"),
             cls="container mt-4 text-center"
         ),
-bootscript(),
+        bootscript(),
     )
 
 @app.post("/ospf_form")
