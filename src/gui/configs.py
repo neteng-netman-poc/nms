@@ -8,24 +8,25 @@ def pull_backup_files():
     """
 
     # pull from api
-    files = os.listdir("./src/backups/")
+    hostnames = ["r1", "r2", "r3", "r4", "r5"]
 
     return Div(
         Div(
             Div(
-                H3("Load Config:"),
+                H3("Load Backup Config For Router:"),
                 Ul(
                     *[
                         Li(
                             Button(
-                                f,
+                                h,
                                 hx_post="/load_conf",
                                 hx_target="#conf",
                                 hx_swap="innerHTML",
-                                hx_vals={"file": f},
+                                hx_vals={"file": h},
+                                cls="btn btn-primary m-2",
                             )
                         )
-                        for f in files
+                        for h in hostnames
                     ]
                 ),
                 cls="col",

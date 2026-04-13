@@ -10,7 +10,7 @@ def query_grafana():
 
     test_data = [
         GrafanaQuery("R1", "10.0.0.1", False),
-        GrafanaQuery("R2", "11.0.0.1", True),
+        GrafanaQuery("R2", "11.0.0.1", False),
         GrafanaQuery("R3", "11.0.0.2", False),
         GrafanaQuery("R4", "11.0.0.4", False),
         GrafanaQuery("R5", "10.0.0.2", False),
@@ -27,7 +27,7 @@ def metric_table():
     rows = []
     for r in data:
         tr = Tr(
-            Td(A(r.host, href="www.google.com")),
+            Td(A(r.host, href="https://r1.dhcp.win", target="_blank")),
             Td(r.ip),
             Td(f"{'⚠' if r.error else '✓'}"),
             cls=f"{'table-warning' if r.error else ''}",

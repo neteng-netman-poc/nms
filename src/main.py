@@ -1,5 +1,5 @@
 import time
-# import requests
+import requests
 
 from fasthtml.common import *
 
@@ -73,7 +73,7 @@ def router_forms():
                     cls="btn btn-outline-primary",
                 ),
                 Button(
-                    "Ipv6",
+                    "IPv6",
                     hx_post="/ipv6_form",
                     hx_target="#router_form",
                     hx_swap="innerHTML",
@@ -182,8 +182,11 @@ def load_conf(file: str):
     Load text from configuration. In testing it will be a test file from 'backups/'.
     """
 
-    with open(f"./src/backups/{file}", "r") as f:
-        text = f.read()
+    try:
+        text = requests.get(f"endpoint/{file}")
+    except:
+        text = ""
+
     return edit_config(file, text)
 
 
