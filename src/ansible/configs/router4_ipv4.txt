@@ -1,5 +1,0 @@
-interface FastEthernet1/1
-    description 
-    ip address 10.0.0.5 255.255.255.254 
-    no shutdown
-!

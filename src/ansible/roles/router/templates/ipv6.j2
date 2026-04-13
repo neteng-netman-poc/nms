@@ -1,7 +1,8 @@
 ipv6 unicast-routing
-interface {{ item.interface.name }}
-    description {{ item.interface.description | default('') }}
-    ipv6 address {{ item.interface.ipv6_address }}/{{ item.interface.prefix_length }} 
+{% for iface in item.interfaces %}
+interface {{ iface.name }}
+    ipv6 address {{ iface.ipv6_address }}/{{ iface.prefix_length }} 
     ipv6 enable
     no shutdown
+{% endfor %}
 !

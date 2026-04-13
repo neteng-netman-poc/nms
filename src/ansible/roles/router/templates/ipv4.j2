@@ -1,5 +1,6 @@
-interface {{ item.interface.name }}
-    description {{ item.interface.description | default('') }}
-    ip address {{ item.interface.ip_address }} {{ item.interface.subnet_mask }} 
+{% for iface in item.interfaces %}
+interface {{ iface.name }}
+    ip address {{ iface.ip_address }} {{ iface.subnet_mask }}
     no shutdown
+{% endfor %}
 !

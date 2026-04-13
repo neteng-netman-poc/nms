@@ -46,45 +46,58 @@ WR_MEM_TASK = {
 
 
 def csv_to_hostvars(csv_filename):
-    """_summary_
+    """Converts a CSV file containing device configuration information into Ansible host variables in YAML format.
 
     Args:
-        csv_filename (_type_): _description_
+        csv_filename (string): The path to the CSV file containing device configuration information.
     """
     os.makedirs('roles/router/vars', exist_ok=True)
     
     vars = []
+    csv_data = {}
     
     with open(csv_filename, 'r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            hostname = row.pop('hostname')
-            row['prefix_length'] = int(row['prefix_length'])
+            if not any(row.values()):
+                continue
+            stripped_row = {}
+            for key, value in row.items():
+                if value is not None:
+                    stripped_row[key.strip()] = value.strip()
+            row = stripped_row
             
-            # vars.append({
-            #     'hostname': hostname,
-            #     'interface': dict(row)
-            # })
-            vars.append({ 
-                'hostname': hostname, 
-                'interface': { 
-                    'name': row['name'], 
-                    'ip_address': row['ip_address'], 
-                    'subnet_mask': row['subnet_mask'], 
-                    'ipv6_address': row['ipv6_address'], 
-                    'prefix_length': int(row['prefix_length']) 
-                }, 
-                'ospf': { 
-                    'process_id': int(row['process_id']), 
-                    'networks': [{ 
-                        'address': row['ospf_network'], 
-                        'wildcard': row['ospf_wildcard'], 
-                        'area': int(row['area_id']) 
-                    }] 
-                } 
-            })
-
-
+            hostname = row.pop('hostname')
+            
+            if hostname not in csv_data:
+                csv_data[hostname] = {
+                    'hostname': hostname,
+                    'interfaces': [],
+                    'ospf': {
+                        'process_id': int(row['process_id']),
+                        'networks': []
+                    }
+                }
+            
+            interface = { 
+                'name': row['name'], 
+                'ip_address': row['ip_address'], 
+                'subnet_mask': row['subnet_mask'], 
+                'ipv6_address': row['ipv6_address'], 
+                'prefix_length': int(row['prefix_length']) 
+            }
+            
+            network = {
+                'address': row['ospf_network'], 
+                'wildcard': row['ospf_wildcard'], 
+                'area': int(row['area_id']) 
+            }
+            
+            csv_data[hostname]['interfaces'].append(interface)
+            csv_data[hostname]['ospf']['networks'].append(network)
+            
+            for router in csv_data.values():
+                vars.append(router)
 
             with open(f'roles/router/vars/main.yaml', 'w') as output:
                 yaml.dump({'routers': vars}, output, default_flow_style=False)
