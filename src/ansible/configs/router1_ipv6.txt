@@ -1,0 +1,7 @@
+ipv6 unicast-routing
+interface FastEthernet1/0
+    description 
+    ipv6 address 2001:db8::1/64 
+    ipv6 enable
+    no shutdown
+!

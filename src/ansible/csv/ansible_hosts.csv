@@ -1,0 +1,6 @@
+hostname,ansible_host,ansible_user,ansible_password,ansible_network_os 
+router1,198.51.100.3,admin,lab123,ios 
+router2,198.51.100.4,admin,lab123,ios
+router3,198.51.100.5,admin,lab123,ios 
+router4,198.51.100.6,admin,lab123,ios
+router5,198.51.100.7,admin,lab123,ios

@@ -1,0 +1,5 @@
+- gather_facts: false
+  hosts: localhost
+  name: Configure IPV4 Interface
+  roles:
+  - router

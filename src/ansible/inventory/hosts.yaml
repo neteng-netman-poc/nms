@@ -1,0 +1,34 @@
+all:
+  children:
+    routers:
+      hosts:
+        router1:
+          ansible_connection: network_cli
+          ansible_host: 198.51.100.3
+          ansible_network_os: ios
+          ansible_password: cisco
+          ansible_user: cisco
+        router2:
+          ansible_connection: network_cli
+          ansible_host: 198.51.100.4
+          ansible_network_os: ios
+          ansible_password: cisco
+          ansible_user: cisco
+        router3:
+          ansible_connection: network_cli
+          ansible_host: 198.51.100.5
+          ansible_network_os: ios
+          ansible_password: cisco
+          ansible_user: cisco
+        router4:
+          ansible_connection: network_cli
+          ansible_host: 198.51.100.6
+          ansible_network_os: ios
+          ansible_password: cisco
+          ansible_user: cisco
+        router5:
+          ansible_connection: network_cli
+          ansible_host: 198.51.100.7
+          ansible_network_os: ios
+          ansible_password: cisco
+          ansible_user: cisco

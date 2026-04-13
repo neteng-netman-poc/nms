@@ -1,0 +1,5 @@
+interface {{ item.interface.name }}
+    description {{ item.interface.description | default('') }}
+    ip address {{ item.interface.ip_address }} {{ item.interface.subnet_mask }} 
+    no shutdown
+!

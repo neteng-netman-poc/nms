@@ -1,0 +1,5 @@
+- gather_facts: false
+  hosts: localhost
+  name: Configure OSPF Interface
+  roles:
+  - router
