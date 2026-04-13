@@ -147,6 +147,15 @@ def generate_tasks(selected_cfgs):
     os.makedirs("./src/automation/roles/router/tasks", exist_ok=True)
 
     tasks = []
+    
+    tasks.append({
+        'name': 'Create configs directory',
+        'file': {
+            'path': 'src/automation/configs',
+            'state': 'directory',
+            'mode': '0755' 
+        }
+    })
 
     for cfg in selected_cfgs:
         if cfg in TASK_TEMPLATES:
