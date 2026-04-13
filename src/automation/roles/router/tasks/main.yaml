@@ -1,3 +1,8 @@
+- file:
+    mode: '0755'
+    path: src/automation/configs
+    state: directory
+  name: Create configs directory
 - name: Generate full config from template
   tags:
   - all
