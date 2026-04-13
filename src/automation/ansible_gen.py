@@ -61,7 +61,7 @@ def csv_to_hostvars(csv_filename):
     Args:
         csv_filename (string): The path to the CSV file containing device configuration information.
     """
-    os.makedirs("/src/automation/roles/router/vars", exist_ok=True)
+    os.makedirs("./src/automation/roles/router/vars", exist_ok=True)
 
     vars = []
     csv_data = {}
@@ -106,18 +106,18 @@ def csv_to_hostvars(csv_filename):
             for router in csv_data.values():
                 vars.append(router)
 
-            with open(f"/src/automation/roles/router/vars/main.yaml", "w") as output:
+            with open(f"./src/automation/roles/router/vars/main.yaml", "w") as output:
                 yaml.dump({"routers": vars}, output, default_flow_style=False)
 
 
-def csv_to_inventory(csv_filename, output_file="/src/automation/inventory/hosts.yaml"):
+def csv_to_inventory(csv_filename, output_file="./src/automation/inventory/hosts.yaml"):
     """converts a csv file containing device connection information into an Ansible inventory file in YAML format.
 
     Args:
         csv_filename (str): The path to the CSV file containing device connection information.
         output_file (str, optional): The path to the output YAML inventory file. Defaults to 'inventory/hosts.yaml'.
     """
-    os.makedirs("/src/automation/inventory", exist_ok=True)
+    os.makedirs("./src/automation/inventory", exist_ok=True)
 
     inventory = {"all": {"children": {"routers": {"hosts": {}}}}}
     hosts = inventory["all"]["children"]["routers"]["hosts"]
@@ -144,7 +144,7 @@ def generate_tasks(selected_cfgs):
     Args:
         selected_cfgs (list): A list of selected configuration types.
     """
-    os.makedirs("/src/automation/roles/router/tasks", exist_ok=True)
+    os.makedirs("./src/automation/roles/router/tasks", exist_ok=True)
 
     tasks = []
 
@@ -154,7 +154,7 @@ def generate_tasks(selected_cfgs):
 
     # tasks.append(WR_MEM_TASK)
 
-    with open("/src/automation/roles/router/tasks/main.yaml", "w") as taskfile:
+    with open("./src/automation/roles/router/tasks/main.yaml", "w") as taskfile:
         yaml.dump(tasks, taskfile, default_flow_style=False, allow_unicode=True)
 
 
@@ -165,7 +165,7 @@ def generate_playbook(output_file, hosts="localhost"):
         output_file (str): The path to the output YAML playbook file.
         hosts (str, optional): The hosts to include in the playbook. Defaults to 'localhost'.
     """
-    os.makedirs("/src/automation/playbooks", exist_ok=True)
+    os.makedirs("./src/automation/playbooks", exist_ok=True)
 
     playbook = [
         {
@@ -180,13 +180,13 @@ def generate_playbook(output_file, hosts="localhost"):
         yaml.dump(playbook, output, default_flow_style=False, allow_unicode=True)
 
 
-def run_playbook(playbook_file, tags, inventory="/src/automation/inventory/hosts.yaml", dry_run=False):
+def run_playbook(playbook_file, tags, inventory="./src/automation/inventory/hosts.yaml", dry_run=False):
     """A function to run an Ansible playbook with specific tags associated with tasks.
 
     Args:
         playbook_file (str): The path to the playbook file to run.
         tags (list): A list of tags to include in the playbook run.
-        inventory (str, optional): The path to the inventory file. Defaults to "/src/automation/inventory/hosts.yaml".
+        inventory (str, optional): The path to the inventory file. Defaults to "./src/automation/inventory/hosts.yaml".
         dry_run (bool, optional): Whether to perform a dry run. Defaults to False.
 
     Returns:
@@ -239,9 +239,9 @@ def config_devices(selected_cfgs, host_info_csv):
 
         connection = ConnectHandler(**device)
         connection.enable()
-        os.makedirs("/src/automation/configs", exist_ok=True)
+        os.makedirs("./src/automation/configs", exist_ok=True)
         for cfg in selected_cfgs:
-            cfg_file = f"/src/automation/configs/{host['hostname']}_{cfg}.txt"
+            cfg_file = f"./src/automation/configs/{host['hostname']}_{cfg}.txt"
             print(cfg_file)
             connection.send_config_from_file(cfg_file)
         connection.disconnect()
@@ -253,15 +253,15 @@ def day1_configs():
     """
     selected_configs = ["all"]
 
-    csv_to_inventory("/src/automation/csv/ansible_hosts.csv")
-    csv_to_hostvars("/src/automation/csv/device_config_info.csv")
+    csv_to_inventory("./src/automation/csv/ansible_hosts.csv")
+    csv_to_hostvars("./src/automation/csv/device_config_info.csv")
 
     generate_tasks(selected_configs)
 
-    generate_playbook("/src/automation/playbooks/config.yaml")
+    generate_playbook("./src/automation/playbooks/config.yaml")
 
 
-    if run_playbook("/src/automation/playbooks/config.yaml", tags=selected_configs) == 0:
-        config_devices(selected_configs, "/src/automation/csv/ansible_hosts.csv")
+    if run_playbook("./src/automation/playbooks/config.yaml", tags=selected_configs) == 0:
+        config_devices(selected_configs, "./src/automation/csv/ansible_hosts.csv")
 
 day1_configs()
