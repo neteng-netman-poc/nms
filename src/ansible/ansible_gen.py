@@ -179,11 +179,14 @@ def generate_playbook(output_file, hosts='localhost'):
         yaml.dump(playbook, output, default_flow_style=False, allow_unicode=True)
         
         
-def run_playbook(playbook_file, inventory='inventory/hosts.yaml', dry_run=False):
+def run_playbook(playbook_file, tags, inventory='inventory/hosts.yaml', dry_run=False):
     cmd = ['ansible-playbook', '-i', inventory, playbook_file]
     
     if dry_run:
         cmd.append('--check')
+        
+    if tags:
+        cmd.extend(['--tags', ','.join(tags)])
         
     env = os.environ.copy()
     env['LC_ALL'] = 'C.UTF-8'
