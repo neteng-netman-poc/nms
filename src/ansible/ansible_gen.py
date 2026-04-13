@@ -111,11 +111,11 @@ def csv_to_hostvars(csv_filename):
 
 
 def csv_to_inventory(csv_filename, output_file="inventory/hosts.yaml"):
-    """_summary_
+    """converts a csv file containing device connection information into an Ansible inventory file in YAML format.
 
     Args:
-        csv_filename (_type_): _description_
-        output_file (str, optional): _description_. Defaults to 'inventory/hosts.yaml'.
+        csv_filename (str): The path to the CSV file containing device connection information.
+        output_file (str, optional): The path to the output YAML inventory file. Defaults to 'inventory/hosts.yaml'.
     """
     os.makedirs("inventory", exist_ok=True)
 
@@ -127,7 +127,6 @@ def csv_to_inventory(csv_filename, output_file="inventory/hosts.yaml"):
         for row in reader:
             hostname = row["hostname"]
             hosts[hostname] = {
-                # NEED TO UPDATE THE NAMES OF THESE TO PROPERLY MAKE A CSV FOR CONNECTING
                 "ansible_host": row["ansible_host"],
                 "ansible_user": row["ansible_user"],
                 "ansible_password": row["ansible_password"],
@@ -140,6 +139,11 @@ def csv_to_inventory(csv_filename, output_file="inventory/hosts.yaml"):
 
 
 def generate_tasks(selected_cfgs):
+    """A function that generates Ansible tasks based on the selected configuration types and writes them to a YAML file.
+
+    Args:
+        selected_cfgs (list): A list of selected configuration types.
+    """
     os.makedirs("roles/router/tasks", exist_ok=True)
 
     tasks = []
@@ -155,12 +159,11 @@ def generate_tasks(selected_cfgs):
 
 
 def generate_playbook(output_file, hosts="localhost"):
-    """_summary_
+    """A function that generates an Ansible playbook and writes it to a YAML file.
 
     Args:
-        output_file (_type_): _description_
-        template (_type_): _description_
-        hosts (str, optional): _description_. Defaults to 'localhost'.
+        output_file (str): The path to the output YAML playbook file.
+        hosts (str, optional): The hosts to include in the playbook. Defaults to 'localhost'.
     """
     os.makedirs("playbooks", exist_ok=True)
 
@@ -178,6 +181,17 @@ def generate_playbook(output_file, hosts="localhost"):
 
 
 def run_playbook(playbook_file, tags, inventory="inventory/hosts.yaml", dry_run=False):
+    """A function to run an Ansible playbook with specific tags associated with tasks.
+
+    Args:
+        playbook_file (str): The path to the playbook file to run.
+        tags (list): A list of tags to include in the playbook run.
+        inventory (str, optional): The path to the inventory file. Defaults to "inventory/hosts.yaml".
+        dry_run (bool, optional): Whether to perform a dry run. Defaults to False.
+
+    Returns:
+        int: The return code of the Ansible playbook run.
+    """
     cmd = ["ansible-playbook", "-i", inventory, playbook_file]
 
     if dry_run:
@@ -201,6 +215,12 @@ def run_playbook(playbook_file, tags, inventory="inventory/hosts.yaml", dry_run=
 
 
 def config_devices(selected_cfgs, host_info_csv):
+    """A function to configure devices using jinja 2 configs.
+
+    Args:
+        selected_cfgs (list): A list of selected configuration types.
+        host_info_csv (str): The path to the CSV file containing host information.
+    """
     hosts = []
 
     with open(host_info_csv, "r") as file:
