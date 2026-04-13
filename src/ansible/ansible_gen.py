@@ -247,6 +247,10 @@ def config_devices(selected_cfgs, host_info_csv):
         connection.disconnect()
 
 def day1_configs():
+    """
+    A function to run the initial day 1 configurations on devices using Ansible playbooks and jinja2 templates.
+    Generates the necessary IPv4 interface, IPv6 interface, and OSPF configuration files from templates, creates the Ansible playbook and tasks, and runs the playbook to apply the configurations to the devices.
+    """
     selected_configs = ["all"]
 
     csv_to_inventory("./csv/ansible_hosts.csv")
