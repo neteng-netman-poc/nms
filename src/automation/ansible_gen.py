@@ -261,15 +261,15 @@ def day1_configs():
     """
     selected_configs = ["all"]
 
-    csv_to_inventory("./src/automation/csv/ansible_hosts.csv")
-    csv_to_hostvars("./src/automation/csv/device_config_info.csv")
+    csv_to_inventory("src/automation/csv/ansible_hosts.csv")
+    csv_to_hostvars("src/automation/csv/device_config_info.csv")
 
     generate_tasks(selected_configs)
 
-    generate_playbook("./src/automation/playbooks/config.yaml")
+    generate_playbook("src/automation/playbooks/config.yaml")
 
 
-    if run_playbook("./src/automation/playbooks/config.yaml", tags=selected_configs) == 0:
-        config_devices(selected_configs, "./src/automation/csv/ansible_hosts.csv")
+    if run_playbook("src/automation/playbooks/config.yaml", tags=selected_configs) == 0:
+        config_devices(selected_configs, "src/automation/csv/ansible_hosts.csv")
 
 day1_configs()
