@@ -1,16 +1,17 @@
 import time
 import requests
+import json
 
 from fasthtml.common import *
 
 from gui.forms import int_ipv4_form, int_ipv6_form, ospf_form
 from gui.navbar import navbar
-from gui.utils import bootscript
+from gui.utils import bootscript, footer
 from gui.configs import pull_backup_files, edit_config
 from gui.metrics import metric_table
 from classes.router import IpV4Change, IpV6Change, OspfChange, TextConf
-from automation.ansible_gen import day1_configs
-import python.quick_configs as quick_configs
+# from automation.ansible_gen import day1_configs
+# import python.quick_configs as quick_configs
 
 
 hdrs = (
@@ -21,6 +22,7 @@ hdrs = (
         type="text/css",
         crossorigin="anonymous",
     ),
+    Style("body { display: flex; flex-direction: column; min-height: 100vh; }"),
 )
 
 
@@ -37,11 +39,12 @@ def home():
         Title("Grafana"),
         navbar(),
         Div(
-            H1("Router Metrics"),
+            H1("Router Metrics", cls="m-4"),
             metric_table(),
             cls="container text-center",
         ),
         bootscript(),
+        footer(),
     )
 
 
@@ -86,6 +89,7 @@ def router_forms():
             cls="container mt-4 text-center",
         ),
         bootscript(),
+        footer(),
     )
 
 
@@ -145,6 +149,7 @@ def router_confs():
             cls="container mt-4 text-center",
         ),
         bootscript(),
+        footer(),
     )
 
 
@@ -170,11 +175,12 @@ def router_backups():
         Title("Backup Configs"),
         navbar(),
         Div(
-            H1("Backed Up Router Configurations"),
+            H1("Backed Up Router Configurations", cls="text-center m-4"),
             pull_backup_files(),
             cls="container",
         ),
         bootscript(),
+        footer(),
     )
 
 
@@ -196,17 +202,25 @@ def load_conf(file: str):
 
 
 @app.post("/save_conf")
-def save_conf(conf: TextConf):
+def save_conf(conf: str, name: str):
     """
     Send updated config to desired device and render the result.
     """
 
-    print(conf)
-    time.sleep(3)
-    # webhook to jenkins api endpoint
-    # <- send config to server
+    url = f"https://api-jenkins.dheerajgajula.com/config/{name}"
 
-    return H4(f"sent config to {conf.ip}", cls="alert")
+    payload = json.dumps({
+      "config": conf
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    text = "Sent Config" if response.ok else "Failed to Send"
+
+    return H4(text, cls="alert")
 
 
 @app.post("/ospf_config")

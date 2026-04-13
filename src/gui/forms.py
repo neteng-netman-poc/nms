@@ -9,18 +9,8 @@ def ospf_form():
             H2("OSPF Configuration", cls="mb-3"),
             Fieldset(
                 Div(
-                    Label("Management IP", cls="col-sm-4 col-form-label"),
-                    Div(Input(name="mgmt_ip", cls="form-control"), cls="col-sm-8"),
-                    cls="row mb-2 align-items-center",
-                ),
-                Div(
-                    Label("User", cls="col-sm-4 col-form-label"),
-                    Div(Input(name="user", cls="form-control"), cls="col-sm-8"),
-                    cls="row mb-2 align-items-center",
-                ),
-                Div(
-                    Label("Secret", cls="col-sm-4 col-form-label"),
-                    Div(Input(name="secret", type="password", cls="form-control"), cls="col-sm-8"),
+                    Label("Hostname", cls="col-sm-4 col-form-label"),
+                    Div(Input(name="host", cls="form-control"), cls="col-sm-8"),
                     cls="row mb-2 align-items-center",
                 ),
                 Div(
@@ -59,18 +49,8 @@ def int_ipv4_form():
             H2("Interface IPv4 Configuration", cls="mb-3"),
             Fieldset(
                 Div(
-                    Label("Management IP", cls="col-sm-4 col-form-label"),
-                    Div(Input(name="mgmt_ip", cls="form-control"), cls="col-sm-8"),
-                    cls="row mb-2 align-items-center",
-                ),
-                Div(
-                    Label("User", cls="col-sm-4 col-form-label"),
-                    Div(Input(name="user", cls="form-control"), cls="col-sm-8"),
-                    cls="row mb-2 align-items-center",
-                ),
-                Div(
-                    Label("Secret", cls="col-sm-4 col-form-label"),
-                    Div(Input(name="secret", type="password", cls="form-control"), cls="col-sm-8"),
+                    Label("Hostname", cls="col-sm-4 col-form-label"),
+                    Div(Input(name="host", cls="form-control"), cls="col-sm-8"),
                     cls="row mb-2 align-items-center",
                 ),
                 Div(
@@ -103,18 +83,8 @@ def int_ipv6_form():
             H2("Interface IPv6 Configuration", cls="mb-3"),
             Fieldset(
                 Div(
-                    Label("Management IP", cls="col-sm-4 col-form-label"),
-                    Div(Input(name="mgmt_ip", cls="form-control"), cls="col-sm-8"),
-                    cls="row mb-2 align-items-center",
-                ),
-                Div(
-                    Label("User", cls="col-sm-4 col-form-label"),
-                    Div(Input(name="user", cls="form-control"), cls="col-sm-8"),
-                    cls="row mb-2 align-items-center",
-                ),
-                Div(
-                    Label("Secret", cls="col-sm-4 col-form-label"),
-                    Div(Input(name="secret", type="password", cls="form-control"), cls="col-sm-8"),
+                    Label("Hostname", cls="col-sm-4 col-form-label"),
+                    Div(Input(name="host", cls="form-control"), cls="col-sm-8"),
                     cls="row mb-2 align-items-center",
                 ),
                 Div(
