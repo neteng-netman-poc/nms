@@ -10,28 +10,32 @@ TASK_TEMPLATES = {
         { 
             'name': 'Generate ipv4 config from template', 
             'template': 'src=ipv4.j2 dest=../configs/{{ item.hostname }}_ipv4.txt', 
-            'with_items': '{{routers}}'
+            'with_items': '{{routers}}',
+            'tags': ['ipv4']
         }
     ], 
     'ipv6': [ 
         { 
             'name': 'Generate ipv6 config from template', 
             'template': 'src=ipv6.j2 dest=../configs/{{ item.hostname }}_ipv6.txt', 
-            'with_items': '{{routers}}'
+            'with_items': '{{routers}}',
+            'tags': ['ipv6']
         }
     ], 
     'hostname': [ 
         { 
             'name': 'Generate hostname config from template', 
             'template': 'src=hostname.j2 dest=../configs/{{ item.hostname }}_hostname.txt', 
-            'with_items': '{{routers}}'
+            'with_items': '{{routers}}',
+            'tags': ['hostname']
         }
     ], 
     'ospf': [ 
         { 
             'name': 'Generate ospf config from template', 
             'template': 'src=ospf.j2 dest=../configs/{{ item.hostname }}_ospf.txt', 
-            'with_items': '{{routers}}'
+            'with_items': '{{routers}}',
+            'tags': ['ospf']
         }
     ] 
 }
