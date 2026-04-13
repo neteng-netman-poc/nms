@@ -1,0 +1,5 @@
+- gather_facts: false
+  hosts: localhost
+  name: Configure Network Devices
+  roles:
+  - router

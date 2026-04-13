@@ -1,6 +1,5 @@
 routers:
-- &id001
-  hostname: router1
+- hostname: router1
   interfaces:
   - ip_address: 10.0.0.0
     ipv6_address: 2001:db8::1
@@ -29,11 +28,7 @@ routers:
       area: 0
       wildcard: 0.0.0.255
     process_id: 1
-- *id001
-- *id001
-- *id001
-- &id002
-  hostname: router2
+- hostname: router2
   interfaces:
   - ip_address: 10.0.0.10
     ipv6_address: 2001:db8::2
@@ -62,14 +57,7 @@ routers:
       area: 0
       wildcard: 0.0.0.255
     process_id: 1
-- *id001
-- *id002
-- *id001
-- *id002
-- *id001
-- *id002
-- &id003
-  hostname: router3
+- hostname: router3
   interfaces:
   - ip_address: 10.0.0.2
     ipv6_address: 2001:db8::3
@@ -90,14 +78,7 @@ routers:
       area: 0
       wildcard: 0.0.0.255
     process_id: 1
-- *id001
-- *id002
-- *id003
-- *id001
-- *id002
-- *id003
-- &id004
-  hostname: router4
+- hostname: router4
   interfaces:
   - ip_address: 10.0.0.8
     ipv6_address: 2001:db8::4
@@ -118,16 +99,7 @@ routers:
       area: 0
       wildcard: 0.0.0.255
     process_id: 1
-- *id001
-- *id002
-- *id003
-- *id004
-- *id001
-- *id002
-- *id003
-- *id004
-- &id005
-  hostname: router5
+- hostname: router5
   interfaces:
   - ip_address: 10.0.0.11
     ipv6_address: 2001:db8::4
@@ -148,8 +120,3 @@ routers:
       area: 0
       wildcard: 0.0.0.255
     process_id: 1
-- *id001
-- *id002
-- *id003
-- *id004
-- *id005
