@@ -16,9 +16,6 @@ class Router:
 @dataclass
 class TextConf:
     conf: str
-    secret: str
-    ip: str
-
 
 @dataclass
 class GrafanaQuery:
@@ -29,18 +26,14 @@ class GrafanaQuery:
 
 @dataclass
 class IpV4Change:
-    mgmt_ip: str
-    user: str
-    secret: str
+    host: str
     interface: str
     new_ip: str
     ip_mask: str
 
 @dataclass
 class IpV6Change:
-    mgmt_ip: str
-    user: str
-    secret: str
+    host: str
     interface: str
     new_ip: str
     prefix_len: str
@@ -48,9 +41,7 @@ class IpV6Change:
 
 @dataclass
 class OspfChange:
-    mgmt_ip: str
-    user: str
-    secret: str
+    host: str
     ospf_id: int
     ospf_area: int
     ospf_network: str

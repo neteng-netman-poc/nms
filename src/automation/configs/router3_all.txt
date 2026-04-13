@@ -1,0 +1,21 @@
+interface FastEthernet1/0
+    ip address 10.0.0.2 255.255.255.254
+    no shutdown
+interface FastEthernet1/1
+    ip address 10.0.0.1 255.255.255.254
+    no shutdown
+!!
+ipv6 unicast-routing
+interface FastEthernet1/0
+    ipv6 address 2001:db8::3/64 
+    ipv6 enable
+    no shutdown
+interface FastEthernet1/1
+    ipv6 address 2001:db8::3/64 
+    ipv6 enable
+    no shutdown
+!!
+router ospf 1
+        network 10.0.0.0 0.0.0.255 area 0
+        network 10.0.0.0 0.0.0.255 area 0
+    !!

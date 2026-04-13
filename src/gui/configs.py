@@ -55,16 +55,7 @@ def edit_config(name, text):
             hx_disabled_elt="#send_conf_btn",
         )(
             Textarea(text, name="conf", cls="form-control", rows=20),
-            Div(
-                Label("SSH Secret:"),
-                Input(name="secret", type="password"),
-                cls="row",
-            ),
-            Div(
-                Label("Send to IP:"),
-                Input(name="ip"),
-                cls="row",
-            ),
+            Input(type="hidden", name="name", value=name),
             Button(
                 "Send Config",
                 Span(cls="spinner-border spinner-border-sm ms-2 htmx-indicator"),
