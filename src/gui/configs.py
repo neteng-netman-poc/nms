@@ -1,7 +1,11 @@
-from fasthtml.common import H3, Label, Button, Div, Button, Form, Textarea, Ul, Li, Input, Span
+from fasthtml.common import H3, Label, Button, Div, Form, Textarea, Ul, Li, Input, Span
 import os
 
 def pull_backup_files():
+    """
+    pull list of backup files from api and render as a list
+    """
+
     # pull from api
     files = os.listdir("./src/backups/")
 
@@ -19,6 +23,10 @@ def pull_backup_files():
     )
 
 def edit_config(name, text):
+    """
+    render a specific config as an editable form for sending to routers.
+    """
+
     return Div(
         H3(name),
         Form(
@@ -41,7 +49,13 @@ def edit_config(name, text):
                 Input(name="ip"),
                 cls="row",
             ),
-            Button("Send Config", Span(cls="spinner-border spinner-border-sm ms-2 htmx-indicator"), type="submit", id="send_conf_btn", cls="btn btn-primary mt-2"),
+            Button(
+                "Send Config",
+                Span(cls="spinner-border spinner-border-sm ms-2 htmx-indicator"),
+                type="submit",
+                id="send_conf_btn",
+                cls="btn btn-primary mt-2",
+            ),
         ),
         Div(id="last_save"),
         cls="container m-3"
