@@ -8,7 +8,7 @@ def pull_backup_files():
     """
 
     # pull from api
-    hostnames = ["r1", "r2", "r3", "r4", "r5"]
+    hostnames = ["R1", "R2", "R3", "R4", "R5"]
 
     return Div(
         Div(

@@ -185,7 +185,10 @@ def load_conf(file: str):
     """
 
     try:
-        text = requests.get(f"endpoint/{file}")
+        req = f"https://api-netman.dheerajgajula.com/api/config/all?router_hostname={file}"
+        res = requests.get(req)
+        text = res.json()
+        text = text["configs"]["golden_running_configs"]["backed_up_config"]
     except:
         text = ""
 
@@ -201,6 +204,8 @@ def save_conf(conf: TextConf):
     print(conf)
     time.sleep(3)
     # webhook to jenkins api endpoint
+    # <- send config to server
+
     return H4(f"sent config to {conf.ip}", cls="alert")
 
 
@@ -220,6 +225,7 @@ def ipv6_config(conf: IpV6Change):
     Send the new IP configuration to the desired device and render the result.
     """
     # <-- put ipv4 config function
+
     pass
 
 @app.post("/ipv4_config")
@@ -228,6 +234,7 @@ def ipv4_config(conf: IpV4Change):
     Send the new IP configuration to the desired device and render the result.
     """
     # <-- put ipv6 config function
+
     pass
 
 
