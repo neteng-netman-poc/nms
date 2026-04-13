@@ -44,5 +44,5 @@ def navbar():
             ),
             cls="container",
         ),
-        cls="navbar navbar-expand-lg bg-body-tertiary",
+        cls="navbar navbar-expand-lg bg-body-secondary",
     )

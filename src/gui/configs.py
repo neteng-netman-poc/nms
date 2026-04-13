@@ -56,7 +56,7 @@ def edit_config(name, text):
             Textarea(text, name="conf", cls="form-control", rows=20),
             Div(
                 Label("SSH Secret:"),
-                Input(name="secret"),
+                Input(name="secret", type="password"),
                 cls="row",
             ),
             Div(

@@ -3,12 +3,12 @@ import time
 
 from fasthtml.common import *
 
-from gui.forms import int_ip_form, ospf_form
+from gui.forms import int_ipv4_form, int_ipv6_form, ospf_form
 from gui.navbar import navbar
 from gui.utils import bootscript
 from gui.configs import pull_backup_files, edit_config
 from gui.metrics import metric_table
-from classes.router import IpChange, OspfChange, TextConf
+from classes.router import IpV4Change, IpV6Change, OspfChange, TextConf
 
 
 hdrs = (
@@ -66,8 +66,15 @@ def router_forms():
                     cls="btn btn-outline-primary",
                 ),
                 Button(
-                    "Interface",
-                    hx_post="/ip_form",
+                    "IPv4",
+                    hx_post="/ipv4_form",
+                    hx_target="#router_form",
+                    hx_swap="innerHTML",
+                    cls="btn btn-outline-primary",
+                ),
+                Button(
+                    "Ipv6",
+                    hx_post="/ipv6_form",
                     hx_target="#router_form",
                     hx_swap="innerHTML",
                     cls="btn btn-outline-primary",
@@ -89,13 +96,21 @@ def ospf_form_html():
     return ospf_form()
 
 
-@app.post("/ip_form")
+@app.post("/ipv4_form")
 def ip_form_html():
     """
     Render GUI int_ip_form component.
     """
 
-    return int_ip_form()
+    return int_ipv4_form()
+
+@app.post("/ipv6_form")
+def ip_form_html():
+    """
+    Render GUI int_ip_form component.
+    """
+
+    return int_ipv6_form()
 
 
 @app.get("/router_confs")
@@ -137,6 +152,7 @@ def init_conf():
     Run the initial router configurations and render results.
     """
 
+    # <-- send initial config
     time.sleep(2)
     return H4(f"sent initial configurations", cls="alert")
 
@@ -188,15 +204,24 @@ def ospf_config(conf: OspfChange):
     """
     Send the new OSPF configuration to the desired device and render the result.
     """
-
+    # <-- put ospf config function
     pass
 
 
-@app.post("/ip_config")
-def ip_config(conf: IpChange):
+@app.post("/ipv6_config")
+def ipv6_config(conf: IpV6Change):
     """
     Send the new IP configuration to the desired device and render the result.
     """
+    # <-- put ipv4 config function
+    pass
+
+@app.post("/ipv4_config")
+def ipv4_config(conf: IpV4Change):
+    """
+    Send the new IP configuration to the desired device and render the result.
+    """
+    # <-- put ipv6 config function
     pass
 
 
