@@ -11,7 +11,6 @@ from gui.metrics import metric_table
 from classes.router import IpV4Change, IpV6Change, OspfChange, TextConf
 from ansible.ansible_gen import day1_configs
 import python.quick_configs as quick_configs
-import python.configs as txt_cfg_files
 
 
 hdrs = (
