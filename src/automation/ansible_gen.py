@@ -200,7 +200,7 @@ def run_playbook(playbook_file, tags, inventory="./src/automation/inventory/host
     Returns:
         int: The return code of the Ansible playbook run.
     """
-    cmd = ["ansible-playbook", "-i", inventory, playbook_file]
+    cmd = ["ansible-playbook", "-i", inventory, playbook_file, "vvv"]
 
     if dry_run:
         cmd.append("--check")
