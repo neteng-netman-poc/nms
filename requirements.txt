@@ -2,7 +2,4 @@ pysnmp==7.1.22
 prometheus_client==0.25.0
 netmiko==4.3.0
 PyYAML==6.0.1
-ansible==9.0.0
-ansible-pylibssh==1.1.0
-paramiko==3.4.0
 Jinja2==3.1.2
