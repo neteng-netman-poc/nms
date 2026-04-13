@@ -9,7 +9,7 @@ from gui.navbar import navbar
 from gui.utils import bootscript, footer
 from gui.configs import pull_backup_files, edit_config
 from gui.metrics import metric_table
-from classes.router import IpV4Change, IpV6Change, OspfChange, TextConf
+from classes.router import IpV4Change, IpV6Change, OspfChange
 from automation.ansible_gen import day1_configs
 import python.quick_configs as quick_configs
 
