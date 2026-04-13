@@ -6,6 +6,14 @@ from netmiko import ConnectHandler
 
 
 TASK_TEMPLATES = { 
+    'all':[
+        {
+            'name': 'Generate full config from template',
+            'template': 'src=master_template.j2 dest=./configs/{{ item.hostname }}_all.txt',
+            'with_items': '{{ routers }}',
+            'tags': ['all']
+        }
+    ],
     'ipv4': [ 
         { 
             'name': 'Generate ipv4 config from template', 
@@ -141,14 +149,6 @@ def generate_tasks(selected_cfgs):
     
     tasks = []
     
-    # tasks.append({
-    #     'name': 'Create configs directory',
-    #     'file': {
-    #         'path': './configs',
-    #         'state': 'directory'
-    #     }
-    # })
-    
     for cfg in selected_cfgs:
         if cfg in TASK_TEMPLATES:
             tasks.extend(TASK_TEMPLATES[cfg])
@@ -158,7 +158,7 @@ def generate_tasks(selected_cfgs):
     with open('roles/router/tasks/main.yaml', 'w') as taskfile:
         yaml.dump(tasks, taskfile, default_flow_style=False, allow_unicode=True)
 
-def generate_playbook(output_file, template, hosts='localhost'):
+def generate_playbook(output_file, hosts='localhost'):
     """_summary_
 
     Args:
@@ -169,7 +169,7 @@ def generate_playbook(output_file, template, hosts='localhost'):
     os.makedirs('playbooks', exist_ok=True)
     
     playbook = [{
-        'name': f'Configure {template.upper()} Interface',
+        'name': f'Configure Network Devices',
         'hosts': hosts,
         'gather_facts': False,
         'roles': ['router']
@@ -218,6 +218,7 @@ def config_devices(selected_cfgs, host_info_csv):
         
         connection = ConnectHandler(**device)
         connection.enable()
+        os.makedirs('./configs', exist_ok=True)
         for cfg in selected_cfgs:
             cfg_file = f"./configs/{host['hostname']}_{cfg}.txt"
             print(cfg_file)
@@ -225,18 +226,16 @@ def config_devices(selected_cfgs, host_info_csv):
         connection.disconnect()
         
 
+selected_configs = ['all']
+
 csv_to_inventory('./csv/ansible_hosts.csv')
 csv_to_hostvars('./csv/device_config_info.csv')
 
-generate_tasks(['ipv4', 'ipv6', 'ospf'])
+generate_tasks(selected_configs)
 
-generate_playbook('./playbooks/config_ipv4.yaml', template='ipv4')
-generate_playbook('./playbooks/config_ipv6.yaml', template='ipv6')
-generate_playbook('./playbooks/config_ospf.yaml', template='ospf')
+generate_playbook('./playbooks/config.yaml')
 
-if run_playbook('playbooks/config_ipv4.yaml') == 0:
-    config_devices(['ipv4'], './csv/ansible_hosts.csv')
-if run_playbook('playbooks/config_ipv6.yaml') == 0:
-    config_devices(['ipv6'], './csv/ansible_hosts.csv')
-if run_playbook('playbooks/config_ospf.yaml') == 0:
-    config_devices(['ospf'], './csv/ansible_hosts.csv')
+
+if run_playbook('playbooks/config.yaml', tags=selected_configs) == 0:
+    config_devices(selected_configs, './csv/ansible_hosts.csv')
+
