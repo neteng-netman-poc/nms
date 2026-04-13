@@ -28,7 +28,7 @@ app = FastHTML(pico=False, hdrs=hdrs)
 @app.get("/")
 def home():
     """
-    render homepage as grafana table
+    Render homepage as grafana table.
     """
 
     return (
@@ -45,6 +45,10 @@ def home():
 
 @app.get("/router_forms")
 def router_forms():
+    """
+    Render router config forms for interface ips or ospf.
+    """
+
     return (
         Title("Configs"),
         navbar(),
@@ -78,16 +82,28 @@ def router_forms():
 
 @app.post("/ospf_form")
 def ospf_form_html():
+    """
+    Render GUI ospf_form component.
+    """
+
     return ospf_form()
 
 
 @app.post("/ip_form")
 def ip_form_html():
+    """
+    Render GUI int_ip_form component.
+    """
+
     return int_ip_form()
 
 
 @app.get("/router_confs")
 def router_confs():
+    """
+    Render page for deploying intial router configurations.
+    """
+
     return (
         Title("Configs"),
         navbar(),
@@ -117,12 +133,21 @@ def router_confs():
 
 @app.post("/init_conf")
 def init_conf():
+    """
+    Run the initial router configurations and render results.
+    """
+
     time.sleep(2)
     return H4(f"sent initial configurations", cls="alert")
 
 
 @app.get("/router_backups")
 def router_backups():
+    """
+    Get backups from server and render as a list of clickable buttons. Each button
+    loads the config in the textarea of the form to the right.
+    """
+
     return (
         Title("Backup Configs"),
         navbar(),
@@ -137,6 +162,10 @@ def router_backups():
 
 @app.post("/load_conf")
 def load_conf(file: str):
+    """
+    Load text from configuration. In testing it will be a test file from 'backups/'.
+    """
+
     with open(f"./src/backups/{file}", "r") as f:
         text = f.read()
     return edit_config(file, text)
@@ -144,6 +173,10 @@ def load_conf(file: str):
 
 @app.post("/save_conf")
 def save_conf(conf: TextConf):
+    """
+    Send updated config to desired device and render the result.
+    """
+
     print(conf)
     time.sleep(3)
     # webhook to jenkins api endpoint
@@ -152,11 +185,18 @@ def save_conf(conf: TextConf):
 
 @app.post("/ospf_config")
 def ospf_config(conf: OspfChange):
+    """
+    Send the new OSPF configuration to the desired device and render the result.
+    """
+
     pass
 
 
 @app.post("/ip_config")
 def ip_config(conf: IpChange):
+    """
+    Send the new IP configuration to the desired device and render the result.
+    """
     pass
 
 
