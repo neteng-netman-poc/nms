@@ -9,6 +9,7 @@ from gui.utils import bootscript
 from gui.configs import pull_backup_files, edit_config
 from gui.metrics import metric_table
 from classes.router import IpV4Change, IpV6Change, OspfChange, TextConf
+from ansible.ansible_gen import day1_configs
 
 
 hdrs = (
@@ -205,6 +206,7 @@ def ospf_config(conf: OspfChange):
     Send the new OSPF configuration to the desired device and render the result.
     """
     # <-- put ospf config function
+    
     pass
 
 
