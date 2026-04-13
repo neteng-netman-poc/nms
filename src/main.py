@@ -10,8 +10,8 @@ from gui.utils import bootscript, footer
 from gui.configs import pull_backup_files, edit_config
 from gui.metrics import metric_table
 from classes.router import IpV4Change, IpV6Change, OspfChange, TextConf
-# from automation.ansible_gen import day1_configs
-# import python.quick_configs as quick_configs
+from automation.ansible_gen import day1_configs
+import python.quick_configs as quick_configs
 
 
 hdrs = (
@@ -160,7 +160,6 @@ def init_conf():
     """
     day1_configs()
     
-    time.sleep(2)
     return H4(f"sent initial configurations", cls="alert")
 
 
@@ -220,7 +219,7 @@ def save_conf(conf: str, name: str):
 
     text = "Sent Config" if response.ok else "Failed to Send"
 
-    return H4(text, cls="alert")
+    return navbar(), H4(text, cls="alert"), bootscript(), footer()
 
 
 @app.post("/ospf_config")
@@ -228,9 +227,23 @@ def ospf_config(conf: OspfChange):
     """
     Send the new OSPF configuration to the desired device and render the result.
     """
-    # <-- put ospf config function
     
-    pass
+    new_conf = quick_configs.config_ospf(conf.ospf_id, conf.ospf_area, conf.ospf_network, conf.ospf_mask)
+
+    url = f"https://api-jenkins.dheerajgajula.com/config/{conf.host}"
+
+    payload = json.dumps({
+      "config": new_conf
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    text = "Sent Config" if response.ok else "Failed to Send"
+
+    return navbar(), H4(text, cls="alert"), bootscript(), footer()
 
 
 @app.post("/ipv6_config")
@@ -238,18 +251,46 @@ def ipv6_config(conf: IpV6Change):
     """
     Send the new IP configuration to the desired device and render the result.
     """
-    # <-- put ipv4 config function
 
-    pass
+    new_conf = quick_configs.config_ipv6_interface(conf.interface, conf.new_ip, conf.prefix_len)
+
+    url = f"https://api-jenkins.dheerajgajula.com/config/{conf.host}"
+
+    payload = json.dumps({
+      "config": new_conf
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    text = "Sent Config" if response.ok else "Failed to Send"
+
+    return H4(text, cls="alert")
 
 @app.post("/ipv4_config")
 def ipv4_config(conf: IpV4Change):
     """
     Send the new IP configuration to the desired device and render the result.
     """
-    # <-- put ipv6 config function
 
-    pass
+    new_conf = quick_configs.config_ipv4_interface(conf.interface, conf.new_ip, conf.ip_mask)
+
+    url = f"https://api-jenkins.dheerajgajula.com/config/{conf.host}"
+
+    payload = json.dumps({
+      "config": new_conf
+    })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    text = "Sent Config" if response.ok else "Failed to Send"
+
+    return navbar(), H4(text, cls="alert"), bootscript(), footer()
 
 
 if __name__ == "__main__":
