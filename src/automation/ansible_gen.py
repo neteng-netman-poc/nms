@@ -247,9 +247,9 @@ def config_devices(selected_cfgs, host_info_csv):
 
         connection = ConnectHandler(**device)
         connection.enable()
-        os.makedirs("./src/automation/configs", exist_ok=True)
+        os.makedirs("src/automation/configs", exist_ok=True)
         for cfg in selected_cfgs:
-            cfg_file = f"./src/automation/configs/{host['hostname']}_{cfg}.txt"
+            cfg_file = f"src/automation/configs/{host['hostname']}_{cfg}.txt"
             print(cfg_file)
             connection.send_config_from_file(cfg_file)
         connection.disconnect()
