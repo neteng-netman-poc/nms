@@ -103,11 +103,10 @@ def csv_to_hostvars(csv_filename):
             csv_data[hostname]["interfaces"].append(interface)
             csv_data[hostname]["ospf"]["networks"].append(network)
 
-            for router in csv_data.values():
-                vars.append(router)
+    vars = list(csv_data.values())
 
-            with open(f"./src/automation/roles/router/vars/main.yaml", "w") as output:
-                yaml.dump({"routers": vars}, output, default_flow_style=False)
+    with open(f"./src/automation/roles/router/vars/main.yaml", "w") as output:
+        yaml.dump({"routers": vars}, output, default_flow_style=False)
 
 
 def csv_to_inventory(csv_filename, output_file="./src/automation/inventory/hosts.yaml"):
