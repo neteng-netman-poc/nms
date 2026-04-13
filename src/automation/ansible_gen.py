@@ -268,6 +268,6 @@ def day1_configs():
 
     generate_playbook("src/automation/playbooks/config.yaml")
 
-
+    run_playbook("src/automation/playbooks/config.yaml", tags=selected_configs)
     # if run_playbook("src/automation/playbooks/config.yaml", tags=selected_configs) == 0:
     #     config_devices(selected_configs, "src/automation/csv/ansible_hosts.csv")
