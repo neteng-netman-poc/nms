@@ -212,14 +212,14 @@ def run_playbook(playbook_file, tags, inventory="./src/automation/inventory/host
     env["LC_ALL"] = "C.UTF-8"
     env["LANG"] = "C,UTF-8"
 
-    result = subprocess.run(cmd, env=env)
+    result = subprocess.run(cmd, env=env, capture_output=True, text=True)
 
     if result.returncode != 0:
         print(f"Playbook failed:\n{result.stderr}")
     else:
         print("Playbook completed successfully")
 
-    return result.returncode
+    return result.stdout
 
 
 def config_devices(selected_cfgs, host_info_csv):
@@ -268,6 +268,6 @@ def day1_configs():
 
     generate_playbook("src/automation/playbooks/config.yaml")
 
-    run_playbook("src/automation/playbooks/config.yaml", tags=selected_configs)
+    return run_playbook("src/automation/playbooks/config.yaml", tags=selected_configs)
     # if run_playbook("src/automation/playbooks/config.yaml", tags=selected_configs) == 0:
     #     config_devices(selected_configs, "src/automation/csv/ansible_hosts.csv")

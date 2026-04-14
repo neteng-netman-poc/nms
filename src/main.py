@@ -158,9 +158,10 @@ def init_conf():
     """
     Run the initial router configurations and render results.
     """
-    day1_configs()
+    text = day1_configs()
+    print(text)
     
-    return H4(f"sent initial configurations", cls="alert")
+    return Pre(text)
 
 
 @app.get("/router_backups")
@@ -219,7 +220,7 @@ def save_conf(conf: str, name: str):
 
     text = "Sent Config" if response.ok else "Failed to Send"
 
-    return navbar(), H4(text, cls="alert"), bootscript(), footer()
+    return H4(text, cls="alert"), A("Jenkins Pipeline", cls="m-4", href="https://jenkins.dheerajgajula.com/job/jenkins-config-change-pipeline/", target="_blank")
 
 
 @app.post("/ospf_config")
@@ -243,7 +244,7 @@ def ospf_config(conf: OspfChange):
 
     text = "Sent Config" if response.ok else "Failed to Send"
 
-    return navbar(), H4(text, cls="alert"), bootscript(), footer()
+    return navbar(), H4(text, cls="alert"), A("Jenkins Pipeline", cls="m-4", href="https://jenkins.dheerajgajula.com/job/jenkins-config-change-pipeline/", target="_blank"), bootscript(), footer()
 
 
 @app.post("/ipv6_config")
@@ -267,7 +268,7 @@ def ipv6_config(conf: IpV6Change):
 
     text = "Sent Config" if response.ok else "Failed to Send"
 
-    return navbar(), H4(text, cls="alert"), bootscript(), footer()
+    return navbar(), H4(text, cls="alert"), A("Jenkins Pipeline", cls="m-4", href="https://jenkins.dheerajgajula.com/job/jenkins-config-change-pipeline/", target="_blank"), bootscript(), footer()
 
 @app.post("/ipv4_config")
 def ipv4_config(conf: IpV4Change):
@@ -290,7 +291,7 @@ def ipv4_config(conf: IpV4Change):
 
     text = "Sent Config" if response.ok else "Failed to Send"
 
-    return navbar(), H4(text, cls="alert"), bootscript(), footer()
+    return navbar(), H4(text, cls="alert"), A("Jenkins Pipeline", cls="m-4", href="https://jenkins.dheerajgajula.com/job/jenkins-config-change-pipeline/", target="_blank"), bootscript(), footer()
 
 @app.post("/ipv4_route")
 def ipv4_config(conf: IpV4Change):
@@ -313,7 +314,7 @@ def ipv4_config(conf: IpV4Change):
 
     text = "Sent Config" if response.ok else "Failed to Send"
 
-    return navbar(), H4(text, cls="alert"), bootscript(), footer()
+    return navbar(), H4(text, cls="alert"), A("Jenkins Pipeline", cls="m-4", href="https://jenkins.dheerajgajula.com/job/jenkins-config-change-pipeline/", target="_blank"), bootscript(), footer()
 
 @app.post("/ipv6_route")
 def ipv4_config(conf: IpV6Change):
@@ -336,7 +337,7 @@ def ipv4_config(conf: IpV6Change):
 
     text = "Sent Config" if response.ok else "Failed to Send"
 
-    return navbar(), H4(text, cls="alert"), bootscript(), footer()
+    return navbar(), H4(text, cls="alert"), A("Jenkins Pipeline", cls="m-4", href="https://jenkins.dheerajgajula.com/job/jenkins-config-change-pipeline/", target="_blank"), bootscript(), footer()
 
 
 if __name__ == "__main__":
